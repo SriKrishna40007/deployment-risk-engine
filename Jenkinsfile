@@ -42,19 +42,19 @@ pipeline {
 
         stage('Docker Security Scan') {
             steps {
-                sh 'uv run dre docker "$DOCKER_CONTEXT/Dockerfile"'
+                sh "uv run dre docker '${params.DOCKER_CONTEXT}/Dockerfile'"
             }
         }
 
         stage('Kubernetes Security Scan') {
             steps {
-                sh 'uv run dre k8s "$MANIFEST"'
+                sh "uv run dre k8s '${params.MANIFEST}'"
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t "$IMAGE_NAME" "$DOCKER_CONTEXT"'
+                sh "docker build -t '${params.IMAGE_NAME}' '${params.DOCKER_CONTEXT}'"
             }
         }
 
