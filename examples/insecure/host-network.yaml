@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: network-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: network-app
+  template:
+    metadata:
+      labels:
+        app: network-app
+    spec:
+      hostNetwork: true
+      containers:
+        - name: app
+          image: python:3.13

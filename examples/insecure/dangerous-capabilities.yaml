@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: capability-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: capability-app
+  template:
+    metadata:
+      labels:
+        app: capability-app
+    spec:
+      containers:
+        - name: app
+          image: python:3.13
+          securityContext:
+            capabilities:
+              add:
+                - SYS_ADMIN
+                - NET_ADMIN

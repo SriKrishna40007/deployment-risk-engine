@@ -1,0 +1,5 @@
+policy:
+  name: default
+  block_on:
+    - CRITICAL
+    - HIGH

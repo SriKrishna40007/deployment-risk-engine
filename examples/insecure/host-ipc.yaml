@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ipc-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ipc-app
+  template:
+    metadata:
+      labels:
+        app: ipc-app
+    spec:
+      hostIPC: true
+      containers:
+        - name: app
+          image: python:3.13

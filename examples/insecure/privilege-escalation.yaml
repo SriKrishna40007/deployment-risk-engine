@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: escalation-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: escalation-app
+  template:
+    metadata:
+      labels:
+        app: escalation-app
+    spec:
+      containers:
+        - name: app
+          image: python:3.13
+          securityContext:
+            privileged: false
+            allowPrivilegeEscalation: true

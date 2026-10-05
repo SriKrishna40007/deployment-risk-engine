@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: process-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: process-app
+  template:
+    metadata:
+      labels:
+        app: process-app
+    spec:
+      hostPID: true
+      containers:
+        - name: app
+          image: python:3.13

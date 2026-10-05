@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: root-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: root-app
+  template:
+    metadata:
+      labels:
+        app: root-app
+    spec:
+      containers:
+        - name: app
+          image: python:3.13
+          securityContext:
+            runAsNonRoot: false
