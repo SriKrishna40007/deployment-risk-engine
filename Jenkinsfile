@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    options {
+        skipDefaultCheckout(true)
+        disableConcurrentBuilds()
+        timestamps()
+    }
+
     parameters {
         string(
             name: 'DOCKER_CONTEXT',
@@ -10,8 +16,8 @@ pipeline {
 
         string(
             name: 'MANIFEST',
-            defaultValue: 'examples/secure/deployment.yaml',
-            description: 'Kubernetes manifest to scan'
+            defaultValue: 'k8s/deployment.yaml',
+            description: 'Kubernetes manifest to scan and deploy'
         )
 
         string(
@@ -60,14 +66,17 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo 'Security gates passed. Kubernetes deployment can proceed.'
+                sh "kubectl apply -f '${params.MANIFEST}'"
+                sh 'kubectl apply -f k8s/service.yaml'
+                sh "kubectl set image deployment/dre-demo app='${params.IMAGE_NAME}'"
+                sh 'kubectl rollout status deployment/dre-demo --timeout=120s'
             }
         }
     }
 
     post {
         success {
-            echo 'All security gates passed. Pipeline completed successfully.'
+            echo 'All security gates passed. Deployment completed successfully.'
         }
 
         failure {
