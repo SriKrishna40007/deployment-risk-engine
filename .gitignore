@@ -41,3 +41,6 @@ jenkins_home/
 
 # Logs
 *.log
+
+# Generated CI artifacts
+.generated/

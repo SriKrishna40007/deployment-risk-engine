@@ -1,7 +1,7 @@
 [project]
 name = "deployment-risk-engine"
 version = "0.1.0"
-description = "Add your description here"
+description = "Security gate for evaluating Docker and Kubernetes deployment risk before release"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
